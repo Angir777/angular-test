@@ -1,0 +1,38 @@
+<div class="row">
+    <div class="col-md-6">
+        <table class="table">
+            <thead>
+              <tr>
+                <th></th>
+                <th scope="col">#</th>
+                <th scope="col">Tytuł</th>
+                <th scope="col">Opis</th>
+                <th scope="col">Zrobione</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let task of tasks; let i = index; let pierwszy = first; let ostatni = last; let parzyste = even; let nieparzyste = odd">
+                <td>
+                  <div class="btn-group">
+                    <button class="btn btn-danger btn-sm" (click)="delete(task)">Usuń</button>
+                  </div>
+                </td>
+                <!-- <td scope="row" [ngClass]="{'is-even': parzyste, 'is-odd': nieparzyste}" [class]="getClassByStatus(parzyste) + ' ' + getIsTextCenter(parzyste)"> -->
+                <td scope="row" [ngClass]="{'is-even': parzyste, 'is-odd': nieparzyste}" [class]="getClassByStatus(parzyste) + ' ' + (parzyste ? 'text-center' : '')"> 
+                  {{ i }} 
+                    <ng-container *ngIf="pierwszy">Pierwszy </ng-container> 
+                    <ng-container *ngIf="ostatni">Ostatni </ng-container>
+                    <ng-container *ngIf="parzyste">Parzyste </ng-container>
+                    <ng-container *ngIf="nieparzyste">Nieparzyste </ng-container>
+                </td>
+                <td>{{ task.title }}</td>
+                <td>{{ task.description }}</td>
+                <td>{{ task.isDone ? 'Tak' : 'Nie' }}</td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+    <div class="col-md-6">
+        <app-update-task [formTitle]="'Dodaj zdanie'" (taskAdded)="onTaskAdded($event)"></app-update-task>
+    </div>
+</div>
